@@ -1,0 +1,25 @@
+Implementação de um decodificador de instruções hexadecimais/binarias em RISC-V
+
+Operações aceitas (baseado no conhecimento da materia Arquitetura de Computadores I):
+
+  Tipo R --
+    ADD, SUB, AND, OR, XOR
+  
+  TIPO I ALU --
+    ADDI, ANDI, ORI, XORI
+
+  TIPO I LOAD --
+    LW
+
+  TIPO S -- 
+    SW
+
+  TIPO B --
+    BEQ, BNE, BLT, BGE
+
+  TIPO J --
+    JAL
+
+
+Metodologia:
+  O programa recebe um arquivo txt com 0 a N instruções separadas por linha, o mesmo identifica se a instrução é hexadecimal (valida) ou binaria, e então, com estas informações, divide as instruções por tipo, baseado no seu valor opcode (bits 0 a 6) respectivo.

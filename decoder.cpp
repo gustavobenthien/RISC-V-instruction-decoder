@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include "operation-type.hpp"
 using namespace std;
 
 int pc = 0;
-
 
 string hexaToBinary(string hexadecimal) {
 
@@ -32,8 +32,8 @@ string hexaToBinary(string hexadecimal) {
 string lineReader() {
 
   /*
-  O modificador estatico mantem o arquivo aberto
-  na ultima linha que fora consultado.
+    O modificador estatico mantem o arquivo aberto
+    na ultima linha que fora consultado.
   */
 
   static ifstream file("./rom.txt");
@@ -54,33 +54,7 @@ string lineReader() {
   return "ERROR";
 }
 
-void divideBinary(string binary, string list[]) {
-
-  /*
-  0 = imediato
-  1 = rs1
-  2 = funct3
-  3 = rd
-  4 = opcode
-  */
-
-  list[0] = binary.substr(0, 12);
-  list[1] = binary.substr(12, 5);
-  list[2] = binary.substr(17, 3);
-  list[3] = binary.substr(20, 5);
-  list[4] = binary.substr(25, 7);
-}
-
 int main() {
   string aux[5];
-  string value = hexaToBinary("0x00500413");
-
-  cout << value << endl;
-
-  divideBinary(value, aux);
-
-  for(int i = 0; i < 5; i++) {
-    cout << aux[i] << endl;
-  }
- 
+  string value = hexaToBinary("0x00500413"); 
 }
