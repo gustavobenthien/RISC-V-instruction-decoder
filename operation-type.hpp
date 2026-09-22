@@ -6,6 +6,10 @@ using namespace std;
   Determinado pelo valor opcode.
 */
 
+string opcode(string binary) {
+  return binary.substr(25, 7);
+}
+
 void typeR(string binary, string values[]) {
 
   /*
@@ -24,7 +28,6 @@ void typeR(string binary, string values[]) {
   values[2] = binary.substr(12, 5);
   values[3] = binary.substr(17, 3);
   values[4] = binary.substr(20, 5);
-  values[5] = binary.substr(25, 7);
 }
 
 void typeI(string binary, string values[]) {
@@ -47,7 +50,6 @@ void typeI(string binary, string values[]) {
   values[1] = binary.substr(12, 5);
   values[2] = binary.substr(17, 3);
   values[3] = binary.substr(20, 5);
-  values[4] = binary.substr(25, 7);
 }
 
 void typeS(string binary, string values[]) {
@@ -68,7 +70,6 @@ void typeS(string binary, string values[]) {
   values[2] = binary.substr(12, 5);
   values[3] = binary.substr(17, 3);
   values[4] = binary.substr(20, 5);
-  values[5] = binary.substr(25, 7);
 }
 
 void typeB(string binary, string values[]) {
@@ -93,7 +94,6 @@ void typeB(string binary, string values[]) {
   values[4] = binary.substr(17, 3);  
   values[5] = binary.substr(20, 4);  
   values[6] = binary.substr(24, 1);  
-  values[7] = binary.substr(25, 7); 
 }
 
 void typeJ(string binary, string values[]) {
@@ -114,5 +114,4 @@ void typeJ(string binary, string values[]) {
   values[2] = binary.substr(11, 1);
   values[3] = binary.substr(12, 8);
   values[4] = binary.substr(20, 5);
-  values[5] = binary.substr(25, 7);
 }

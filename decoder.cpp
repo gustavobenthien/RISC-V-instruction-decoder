@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include "operation-type.hpp"
 using namespace std;
 
@@ -54,7 +55,35 @@ string lineReader() {
   return "ERROR";
 }
 
+int binaryToInt(string binary) {
+
+  int result = 0;
+
+  for(char c : binary) {
+    result = result * 2 + (c - 48);
+  }
+
+  return result;
+}
+
+void detectType(string binary, string values[]) {
+
+  // TIPO R
+  if(opcode(binary) == "0110011") {
+
+    typeR(binary, values);
+
+    cout << "format: R" << endl; 
+    cout << "funct7: " << binaryToInt(values[0]) << endl;
+    cout << "rs2: " << binaryToInt(values[1]) << endl;
+    cout << "rs1: " << binaryToInt(values[2]) << endl;
+    cout << "funct3: " << binaryToInt(values[3]) << endl;
+    cout << "rd: " << binaryToInt(values[4]) << endl;
+  }
+}
+
 int main() {
-  string aux[5];
-  string value = hexaToBinary("0x00500413"); 
+  string values[5];
+
+  detectType(lineReader(), values);
 }

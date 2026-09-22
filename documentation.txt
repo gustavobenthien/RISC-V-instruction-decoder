@@ -23,3 +23,10 @@ Operações aceitas (baseado no conhecimento da materia Arquitetura de Computado
 
 Metodologia:
   O programa recebe um arquivo txt com 0 a N instruções separadas por linha, o mesmo identifica se a instrução é hexadecimal (valida) ou binaria, e então, com estas informações, divide as instruções por tipo, baseado no seu valor opcode (bits 0 a 6) respectivo.
+
+  Operation-Type:
+    O arquivo header "operation-type" é dividido entre 6 funções: 
+      1 = detector de opcode
+      2-6 = Divisor de operação de tipo R a J (exclui o tipo U)
+    
+    Na aplicação real, ao detectar o valor respectivo do opcode, a implementação tem a responsabilidade de retornar este valor ao seu respectivo tipo e dividir a instrução de 32 bits respectivamente.
