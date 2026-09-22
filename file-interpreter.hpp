@@ -1,0 +1,57 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+string hexaBinaryConverter(string hexadecimal) {
+
+  string table[16] = {
+    "0000", "0001", "0010", "0011",
+    "0100", "0101", "0110", "0111",
+    "1000", "1001", "1010", "1011",
+    "1100", "1101", "1110", "1111"
+  };
+
+  string binary = "";
+
+  for(char c : hexadecimal.substr(2, 8)) {
+
+    if(c >= 48 && c <= 57) {
+      binary += table[c - 48];
+    }
+    else if(c >= 65 && c <= 70) {
+      binary += table[(c - 65) + 10];
+    }
+  }
+
+  return binary;
+}
+
+int binaryIntConverter(string binary) {
+
+  int result = 0;
+
+  for(char c : binary) {
+    result = result * 2 + (c - 48);
+  }
+
+  return result;
+}
+
+string lineReader() {
+
+  static ifstream file("./rom.txt");
+  string line;
+
+  if(file.is_open()) {
+
+    getline(file, line);
+
+    if(line.substr(0,2) == "0x" || line.substr(0,2) == "0X") {
+      return hexaBinaryConverter(line);
+    } else {
+      return line;
+    }
+  }
+
+  return "ERROR";
+}

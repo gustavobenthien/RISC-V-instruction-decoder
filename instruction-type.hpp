@@ -1,11 +1,6 @@
 #include <iostream>
 using namespace std;
 
-/*
-  Divisão do binario baseado no tipo de operação.
-  Determinado pelo valor opcode.
-*/
-
 string opcode(string binary) {
   return binary.substr(25, 7);
 }
