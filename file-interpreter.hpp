@@ -3,10 +3,6 @@
 #include <fstream>
 using namespace std;
 
-int PCcounter(int pc) {
-  
-}
-
 string hexaBinaryConverter(string hexadecimal) {
 
   string table[16] = {

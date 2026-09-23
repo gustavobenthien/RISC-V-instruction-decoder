@@ -60,6 +60,15 @@ string instructionReconstruction(string binary, string values[]) {
                ", " + to_string(binaryIntConverter(values[0] + values[1])) +
                "(x" + to_string(binaryIntConverter(values[2])) + ")";
   }
+  // TIPO I JALR
+  else if(opcode(binary) == "1100111") {
+    typeI(binary, values);
+
+    return mnemonicTypeI(opcode(binary), values[3], values[0]) +
+               " x" + to_string(binaryIntConverter(values[4])) +
+              ", x" + to_string(binaryIntConverter(values[2])) +
+              ", " + to_string(getPC() + binaryIntConverter(values[0] + values[1]));
+  }
   // TIPO S
   else if(opcode(binary) == "0100011") {
 

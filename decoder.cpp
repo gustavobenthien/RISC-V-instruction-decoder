@@ -40,6 +40,14 @@ void instructionFields(string binary, string fields[]) {
     cout << "IMM: " << binaryIntConverter(fields[0] + fields[4]) << endl;
   }
 
+  else if(typeIdentification(opcode(binary)) == 'B') {
+    typeB(binary, fields);
+    cout << "Mnemonic: " << mnemonicTypeB(fields[4]) << endl;
+    cout << "RS1: " << binaryIntConverter(fields[3]) << endl;
+    cout << "RS2: " << binaryIntConverter(fields[2]) << endl;
+    cout << "IMM: " << binaryIntConverter(fields[0] + fields[1] + fields[5] + fields[6]) << endl;
+  }
+
   cout << "-------------------" << endl;
   cout << "Assembly instruction: " << endl;
   cout << "-------------------" << endl;
@@ -50,13 +58,10 @@ void instructionFields(string binary, string fields[]) {
 int main() {
   string fields[10];
 
-  while(1) {
-    
+
+  for(int i = 0; i < 10; i++) {
+    instructionFields(lineReader(), fields);
   }
-  
-  instructionFields(lineReader(), fields);
-  instructionFields(lineReader(), fields);
-  instructionFields(lineReader(), fields);
 
   return 0;
 }
