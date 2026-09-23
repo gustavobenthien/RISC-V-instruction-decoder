@@ -23,16 +23,39 @@ void instructionFields(string binary, string fields[]) {
     cout << "FUNCT7: " << binaryIntConverter(fields[0]) << endl; 
   }
 
+  else if(typeIdentification(opcode(binary)) == 'I') {
+    typeI(binary, fields);
+    cout << "Mnemonic: " << mnemonicTypeI(opcode(binary), fields[3], fields[0]) << endl;
+    cout << "RD: " << binaryIntConverter(fields[4]) << endl;
+    cout << "RS1: " << binaryIntConverter(fields[2]) << endl;
+    cout << "IMM: " << binaryIntConverter(fields[0] + fields[1]) << endl;
+    cout << "FUNCT3: " << binaryIntConverter(fields[3]) << endl;
+  }
+
+  else if(typeIdentification(opcode(binary)) == 'S') {
+    typeS(binary, fields);
+    cout << "Mnemonic: " << mnemonicTypeS(fields[3]) << endl;
+    cout << "RS1: " << binaryIntConverter(fields[2]) << endl;
+    cout << "RS2: " << binaryIntConverter(fields[1]) << endl;
+    cout << "IMM: " << binaryIntConverter(fields[0] + fields[4]) << endl;
+  }
+
   cout << "-------------------" << endl;
   cout << "Assembly instruction: " << endl;
   cout << "-------------------" << endl;
   cout << instructionReconstruction(binary, fields) << endl;
-  cout << "-------------------" << endl;
+  cout << "-------------------" << endl << endl;
 }
 
 int main() {
   string fields[10];
+
+  while(1) {
+    
+  }
   
+  instructionFields(lineReader(), fields);
+  instructionFields(lineReader(), fields);
   instructionFields(lineReader(), fields);
 
   return 0;

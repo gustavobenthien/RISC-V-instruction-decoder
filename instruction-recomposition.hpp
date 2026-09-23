@@ -3,6 +3,7 @@
 #include "instruction-type.hpp"
 #include "instruction-mnemonic.hpp"
 #include "file-interpreter.hpp"
+#include "pc-control.hpp"
 
 using namespace std;
 
@@ -76,9 +77,23 @@ string instructionReconstruction(string binary, string values[]) {
       Tipos B e J possuem deslocamento, logo é necessario levar o valor
       de PC em consideração.
     */
-  }
+
+    typeB(binary, values);
+
+    return mnemonicTypeB(values[4]) + 
+           " x" + to_string(binaryIntConverter(values[3])) +
+           ", x" + to_string(binaryIntConverter(values[2])) +
+           ", " + to_string(getPC() + 
+           binaryIntConverter(values[0] + values[1] + values[5] + values[6]));
+  } 
   // TIPO J
   else if(opcode(binary) == "1101111") {
+    
+    typeJ(binary, values);
 
+    return mnemonicTypeJ() +
+           " x" + to_string(binaryIntConverter(values[4])) +
+           " x" + to_string(getPC() + 
+           binaryIntConverter(values[0] + values[1] + values[2] + values[3]));
   }
 }
