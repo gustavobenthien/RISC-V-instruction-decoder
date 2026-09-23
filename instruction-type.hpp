@@ -35,17 +35,19 @@ void typeI(string binary, string values[]) {
     Tipo I LOAD
     Opcode: 0000011
 
-    0 = imediato
-    1 = rs1
-    2 = funct3
-    3 = rd
-    4 = opcode
+    0 = imediato/funct7 (7 bits)
+    1 = imediato (5 bits)
+    2 = rs1
+    3 = funct3
+    4 = rd
+    5 = opcode
   */
 
-  values[0] = binary.substr(0, 12);
-  values[1] = binary.substr(12, 5);
-  values[2] = binary.substr(17, 3);
-  values[3] = binary.substr(20, 5);
+  values[0] = binary.substr(0, 7);
+  values[1] = binary.substr(7, 5);
+  values[2] = binary.substr(12, 5);
+  values[3] = binary.substr(17, 3);
+  values[4] = binary.substr(20, 5);
 }
 
 void typeS(string binary, string values[]) {
