@@ -4,7 +4,6 @@ using namespace std;
 
 static int pc = 0;
 
-
 int getPC() {
   return pc;
 }

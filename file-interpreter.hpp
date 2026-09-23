@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include "pc-control.hpp"
 using namespace std;
 
 string hexaBinaryConverter(string hexadecimal) {
@@ -28,8 +29,10 @@ string hexaBinaryConverter(string hexadecimal) {
 }
 
 int binaryIntConverter(string binary) {
-
+  
   int result = 0;
+
+  if(binary[0] == '1') result = -1;
 
   for(char c : binary) {
     result = result * 2 + (c - 48);
@@ -45,6 +48,7 @@ string lineReader() {
 
   if(file.is_open()) {
 
+    incrementPC();
     getline(file, line);
 
     if(line.substr(0,2) == "0x" || line.substr(0,2) == "0X") {

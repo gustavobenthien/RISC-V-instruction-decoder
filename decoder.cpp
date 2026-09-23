@@ -4,12 +4,12 @@
 #include "instruction-mnemonic.hpp"
 #include "instruction-recomposition.hpp"
 #include "file-interpreter.hpp"
+#include "pc-control.hpp"
 
 using namespace std;
 
-int PC = 0;
-
-void instructionFields(string binary, string fields[]) {
+void instructionDecoder(string binary, string fields[]) {
+  cout << "PC: " << getPC() << endl;
   cout << "-------------------" << endl;
   cout << "Format: " << typeIdentification(opcode(binary)) << endl;
   
@@ -19,8 +19,8 @@ void instructionFields(string binary, string fields[]) {
     cout << "RD: " << binaryIntConverter(fields[4]) << endl;
     cout << "RS1: " << binaryIntConverter(fields[2]) << endl;
     cout << "RS2: " << binaryIntConverter(fields[1]) << endl;
-    cout << "FUNCT3: " << binaryIntConverter(fields[3]) << endl;
-    cout << "FUNCT7: " << binaryIntConverter(fields[0]) << endl; 
+    cout << "FUNCT3: " << fields[3] << endl;
+    cout << "FUNCT7: " << fields[0] << endl; 
   }
 
   else if(typeIdentification(opcode(binary)) == 'I') {
@@ -29,7 +29,7 @@ void instructionFields(string binary, string fields[]) {
     cout << "RD: " << binaryIntConverter(fields[4]) << endl;
     cout << "RS1: " << binaryIntConverter(fields[2]) << endl;
     cout << "IMM: " << binaryIntConverter(fields[0] + fields[1]) << endl;
-    cout << "FUNCT3: " << binaryIntConverter(fields[3]) << endl;
+    cout << "FUNCT3: " << fields[3] << endl;
   }
 
   else if(typeIdentification(opcode(binary)) == 'S') {
@@ -48,6 +48,13 @@ void instructionFields(string binary, string fields[]) {
     cout << "IMM: " << binaryIntConverter(fields[0] + fields[1] + fields[5] + fields[6]) << endl;
   }
 
+  else if(typeIdentification(opcode(binary)) == 'J') {
+    typeJ(binary, fields);
+    cout << "Mnemonic: " << mnemonicTypeJ() << endl;
+    cout << "RD: " << binaryIntConverter(fields[4]) << endl;
+    cout << "IMM: " << binaryIntConverter(fields[0] + fields[1] + fields[2] + fields[3]) << endl;
+  }
+
   cout << "-------------------" << endl;
   cout << "Assembly instruction: " << endl;
   cout << "-------------------" << endl;
@@ -60,7 +67,7 @@ int main() {
 
 
   for(int i = 0; i < 10; i++) {
-    instructionFields(lineReader(), fields);
+    instructionDecoder(lineReader(), fields);
   }
 
   return 0;

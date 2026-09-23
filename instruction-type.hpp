@@ -10,6 +10,7 @@ char typeIdentification(string opcode) {
   if(opcode == "0110011") return 'R';
   else if(opcode == "0010011") return 'I';
   else if(opcode == "0000011") return 'I';
+  else if(opcode == "1100111") return 'I';
   else if(opcode == "0100011") return 'S';
   else if(opcode == "1100011") return 'B';
   else if(opcode == "1101111") return 'J';

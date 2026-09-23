@@ -30,3 +30,10 @@ Metodologia:
       2-6 = Divisor de operação de tipo R a J (exclui o tipo U)
     
     Na aplicação real, ao detectar o valor respectivo do opcode, a implementação tem a responsabilidade de retornar este valor ao seu respectivo tipo e dividir a instrução de 32 bits respectivamente.
+
+
+    Material utilizado:
+    
+    https://www.cs.cornell.edu/courses/cs3410/2025fa/rsrc/riscv-instructions-2.html
+
+    https://www.eg.bucknell.edu/~csci206/riscv-converter/
