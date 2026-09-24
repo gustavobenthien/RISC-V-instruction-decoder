@@ -3,6 +3,7 @@
 #include "file-interpreter.hpp"
 #include "instruction-type.hpp"
 #include "instruction-mnemonic.hpp"
+#include "instruction-abi.hpp"
 
 using namespace std;
 
@@ -13,11 +14,10 @@ string instructionReconstruction(string binary, string values[]) {
 
     typeR(binary, values);
 
-    return mnemonicTypeR(values[3], values[0]) + 
-           " x" + to_string(binaryIntConverter(values[4])) +
-           ", x" + to_string(binaryIntConverter(values[2])) +
-           ", x" + to_string(binaryIntConverter(values[1]));
-
+    return mnemonicTypeR(values[3], values[0]) + " " +
+           registerABI(binaryIntConverter(values[4])) + ", " +
+           registerABI(binaryIntConverter(values[2])) + ", " +
+           registerABI(binaryIntConverter(values[1]));
   }
 
   // TIPO I ALU
@@ -37,16 +37,16 @@ string instructionReconstruction(string binary, string values[]) {
     if(mnemonic == "slli" || mnemonic == "srli" || mnemonic == "srai") {
 
          return mnemonicTypeI(opcode(binary), values[3], values[0]) +
-                    " x" + to_string(binaryIntConverter(values[4])) +
-                   ", x" + to_string(binaryIntConverter(values[2])) +
-                    ", " + to_string(binaryIntConverter(values[1]));
+                   " " + registerABI(binaryIntConverter(values[4])) +
+                  ", " + registerABI(binaryIntConverter(values[2])) +
+                  ", " + to_string(binaryIntConverter(values[1]));
     } 
     else {
 
          return mnemonicTypeI(opcode(binary), values[3], values[0]) +
-                    " x" + to_string(binaryIntConverter(values[4])) +
-                   ", x" + to_string(binaryIntConverter(values[2])) +
-                    ", " + to_string(binaryIntConverter(values[0] + values[1]));
+                   " " + registerABI(binaryIntConverter(values[4])) +
+                  ", " + registerABI(binaryIntConverter(values[2])) +
+                  ", " + to_string(binaryIntConverter(values[0] + values[1]));
     } 
 
   }
@@ -57,9 +57,9 @@ string instructionReconstruction(string binary, string values[]) {
     typeI(binary, values);
 
     return mnemonicTypeI(opcode(binary), values[3], values[0]) +
-               " x" + to_string(binaryIntConverter(values[4])) +
-               ", " + to_string(binaryIntConverter(values[0] + values[1])) +
-               "(x" + to_string(binaryIntConverter(values[2])) + ")";
+               " " + registerABI(binaryIntConverter(values[4])) +
+              ", " + to_string(binaryIntConverter(values[0] + values[1])) +
+               "(" + registerABI(binaryIntConverter(values[2])) + ")";
   }
 
   // TIPO I JALR
@@ -67,8 +67,8 @@ string instructionReconstruction(string binary, string values[]) {
     typeI(binary, values);
 
     return mnemonicTypeI(opcode(binary), values[3], values[0]) +
-               " x" + to_string(binaryIntConverter(values[4])) +
-              ", x" + to_string(binaryIntConverter(values[2])) +
+               " " + registerABI(binaryIntConverter(values[4])) +
+              ", " + registerABI(binaryIntConverter(values[2])) +
               ", " + to_string(getPC() + binaryIntConverter(values[0] + values[1]));
   }
 
@@ -78,9 +78,9 @@ string instructionReconstruction(string binary, string values[]) {
     typeS(binary, values);
 
     return mnemonicTypeS(values[3]) +
-               " x" + to_string(binaryIntConverter(values[1])) +
-               ", " + to_string(binaryIntConverter(values[0] + values[4])) +
-               "(x" + to_string(binaryIntConverter(values[2])) + ")";
+               " " + registerABI(binaryIntConverter(values[1])) +
+              ", " + to_string(binaryIntConverter(values[0] + values[4])) +
+               "(" + registerABI(binaryIntConverter(values[2])) + ")";
   }
 
   // TIPO B
@@ -89,9 +89,9 @@ string instructionReconstruction(string binary, string values[]) {
     typeB(binary, values);
 
     return mnemonicTypeB(values[4]) + 
-           " x" + to_string(binaryIntConverter(values[3])) +
-           ", x" + to_string(binaryIntConverter(values[2])) +
-           ", " + to_string(getPC() + 
+           " " + registerABI(binaryIntConverter(values[3])) +
+          ", " + registerABI(binaryIntConverter(values[2])) +
+          ", " + to_string(getPC() + 
            binaryIntConverter(values[0] + values[1] + values[5] + values[6]));
   } 
   
@@ -101,8 +101,8 @@ string instructionReconstruction(string binary, string values[]) {
     typeJ(binary, values);
 
     return mnemonicTypeJ() +
-           " x" + to_string(binaryIntConverter(values[4])) +
-           " x" + to_string(getPC() + 
+           " " + registerABI(binaryIntConverter(values[4])) +
+           ", " + to_string(getPC() + 
            binaryIntConverter(values[0] + values[1] + values[2] + values[3]));
   }
 
@@ -112,7 +112,7 @@ string instructionReconstruction(string binary, string values[]) {
     typeU(binary, values);
 
     return mnemonicTypeU(opcode(binary)) +
-           " x" + to_string(binaryIntConverter(values[0])) +
-           ", " + to_string(getPC() + binaryIntConverter(values[1]));
+           " " + registerABI(binaryIntConverter(values[1])) +
+           ", " + to_string(getPC() + binaryIntConverter(values[0]));
   }
 }
