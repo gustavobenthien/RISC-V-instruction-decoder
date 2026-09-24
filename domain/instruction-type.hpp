@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+
 using namespace std;
 
 string opcode(string binary) {
@@ -28,7 +29,6 @@ void typeR(string binary, string values[]) {
     2 = rs1
     3 = funct3
     4 = rd
-    5 = opcode
   */
 
   values[0] = binary.substr(0, 7);
@@ -44,15 +44,17 @@ void typeI(string binary, string values[]) {
     Tipo I ALU
     Opcode: 0010011
     
-    Tipo I LOAD
+    Tipo I MEMORIA
     Opcode: 0000011
+
+    Tipo I CONTROLE
+    Opcode: 1100111 
 
     0 = imediato/funct7 (7 bits)
     1 = imediato (5 bits)
     2 = rs1
     3 = funct3
     4 = rd
-    5 = opcode
   */
 
   values[0] = binary.substr(0, 7);
@@ -72,7 +74,6 @@ void typeS(string binary, string values[]) {
     2 = rs1
     3 = funct3
     4 = imediato (5 bits)
-    5 = opcode
   */
 
   values[0] = binary.substr(0, 7);
@@ -94,7 +95,6 @@ void typeB(string binary, string values[]) {
     4 = funct3
     5 = imediato (4 bits)
     6 = imediato (1 bit)
-    7 = opcode
   */
 
   values[0] = binary.substr(0, 1);   
@@ -116,7 +116,6 @@ void typeJ(string binary, string values[]) {
     2 = imediato (1 bit)
     3 = imediato (8 bits)
     4 = rd
-    5 = opcode
   */
 
   values[0] = binary.substr(0, 1);

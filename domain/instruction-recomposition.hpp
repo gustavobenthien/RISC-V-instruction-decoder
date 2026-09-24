@@ -1,9 +1,8 @@
 #pragma once
 #include <iostream>
+#include "file-interpreter.hpp"
 #include "instruction-type.hpp"
 #include "instruction-mnemonic.hpp"
-#include "file-interpreter.hpp"
-#include "pc-control.hpp"
 
 using namespace std;
 
@@ -20,6 +19,7 @@ string instructionReconstruction(string binary, string values[]) {
            ", x" + to_string(binaryIntConverter(values[1]));
 
   }
+
   // TIPO I ALU
   else if(opcode(binary) == "0010011") {
 
@@ -50,6 +50,7 @@ string instructionReconstruction(string binary, string values[]) {
     } 
 
   }
+
   // TIPO I LOAD
   else if(opcode(binary) == "0000011") {
     
@@ -60,6 +61,7 @@ string instructionReconstruction(string binary, string values[]) {
                ", " + to_string(binaryIntConverter(values[0] + values[1])) +
                "(x" + to_string(binaryIntConverter(values[2])) + ")";
   }
+
   // TIPO I JALR
   else if(opcode(binary) == "1100111") {
     typeI(binary, values);
@@ -69,6 +71,7 @@ string instructionReconstruction(string binary, string values[]) {
               ", x" + to_string(binaryIntConverter(values[2])) +
               ", " + to_string(getPC() + binaryIntConverter(values[0] + values[1]));
   }
+
   // TIPO S
   else if(opcode(binary) == "0100011") {
 
@@ -79,13 +82,9 @@ string instructionReconstruction(string binary, string values[]) {
                ", " + to_string(binaryIntConverter(values[0] + values[4])) +
                "(x" + to_string(binaryIntConverter(values[2])) + ")";
   }
+
   // TIPO B
   else if(opcode(binary) == "1100011") {
-
-    /*
-      Tipos B e J possuem deslocamento, logo é necessario levar o valor
-      de PC em consideração.
-    */
 
     typeB(binary, values);
 
@@ -95,6 +94,7 @@ string instructionReconstruction(string binary, string values[]) {
            ", " + to_string(getPC() + 
            binaryIntConverter(values[0] + values[1] + values[5] + values[6]));
   } 
+  
   // TIPO J
   else if(opcode(binary) == "1101111") {
     
@@ -113,6 +113,6 @@ string instructionReconstruction(string binary, string values[]) {
 
     return mnemonicTypeU(opcode(binary)) +
            " x" + to_string(binaryIntConverter(values[0])) +
-           ", " + to_string(binaryIntConverter(values[1]));
+           ", " + to_string(getPC() + binaryIntConverter(values[1]));
   }
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+
 using namespace std;
 
 string mnemonicTypeR(string funct3, string funct7) {
@@ -78,7 +79,7 @@ string mnemonicTypeB(string funct3) {
 }
 
 string mnemonicTypeJ() { return "jal"; }
-  
+
 string mnemonicTypeU(string opcode) { 
   if(opcode == "0110111") return "lui";
   else if(opcode == "0010111") return "auipc";
