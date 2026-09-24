@@ -14,6 +14,8 @@ char typeIdentification(string opcode) {
   else if(opcode == "0100011") return 'S';
   else if(opcode == "1100011") return 'B';
   else if(opcode == "1101111") return 'J';
+  else if(opcode == "0110111") return 'U';
+  else if(opcode == "0010111") return 'U';
 }
 
 void typeR(string binary, string values[]) {
@@ -122,4 +124,21 @@ void typeJ(string binary, string values[]) {
   values[2] = binary.substr(11, 1);
   values[3] = binary.substr(12, 8);
   values[4] = binary.substr(20, 5);
+}
+
+void typeU(string binary, string values[]) {
+
+  /*
+    LUI
+    Opcode: 0110111
+
+    AUIPC
+    Opcode: 0010111
+    
+    0 = imediato
+    1 = rd
+  */
+
+  values[0] = binary.substr(0, 20);
+  values[1] = binary.substr(20, 5);
 }

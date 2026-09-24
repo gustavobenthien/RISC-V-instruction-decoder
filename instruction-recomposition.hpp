@@ -105,4 +105,14 @@ string instructionReconstruction(string binary, string values[]) {
            " x" + to_string(getPC() + 
            binaryIntConverter(values[0] + values[1] + values[2] + values[3]));
   }
+
+  // TIPO U
+  else if(opcode(binary) == "0110111" || opcode(binary) == "0010111") {
+
+    typeU(binary, values);
+
+    return mnemonicTypeU(opcode(binary)) +
+           " x" + to_string(binaryIntConverter(values[0])) +
+           ", " + to_string(binaryIntConverter(values[1]));
+  }
 }

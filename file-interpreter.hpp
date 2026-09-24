@@ -4,6 +4,8 @@
 #include "pc-control.hpp"
 using namespace std;
 
+static ifstream file("./rom.txt");
+
 string hexaBinaryConverter(string hexadecimal) {
 
   string table[16] = {
@@ -43,20 +45,25 @@ int binaryIntConverter(string binary) {
 
 string lineReader() {
 
-  static ifstream file("./rom.txt");
   string line;
 
-  if(file.is_open()) {
-
+  if(!(file.is_open())) {
+    file.open("./rom.txt");
+  } 
+  
+  if(getline(file, line)) {
     incrementPC();
-    getline(file, line);
 
     if(line.substr(0,2) == "0x" || line.substr(0,2) == "0X") {
       return hexaBinaryConverter(line);
     } else {
       return line;
     }
-  }
+  } else {
+    return "end";
+  } 
+}
 
-  return "ERROR";
+void resetFile() {
+  file.close();
 }

@@ -3,33 +3,43 @@ Implementação de um decodificador de instruções hexadecimais/binarias em RIS
 Operações aceitas (baseado no conhecimento da materia Arquitetura de Computadores I):
 
   Tipo R --
-    ADD, SUB, AND, OR, XOR
-  
-  TIPO I ALU --
-    ADDI, ANDI, ORI, XORI
-
-  TIPO I LOAD --
-    LW
-
-  TIPO S -- 
-    SW
-
-  TIPO B --
-    BEQ, BNE, BLT, BGE
-
-  TIPO J --
+    ADD, SUB, AND, OR, XOR, SLL, SRL, SRA, SLT, SLTU
+  Tipo I (ALU) --
+    ADDI, ANDI, ORI, XORI, SLTI, SLTIU, SLLI, SRLI, SRAI
+  Tipo I (MEMORIA) -- 
+    LB, LBU, LH, LHU, LW
+  Tipo I (CONTROLE) --
+    JALR
+  Tipo S -- 
+    SB, SH, SW
+  Tipo B --
+    BEQ, BNE, BLT, BLTU, BGE, BGEU
+  Tipo J --
     JAL
 
-
 Metodologia:
-  O programa recebe um arquivo txt com 0 a N instruções separadas por linha, o mesmo identifica se a instrução é hexadecimal (valida) ou binaria, e então, com estas informações, divide as instruções por tipo, baseado no seu valor opcode (bits 0 a 6) respectivo.
+        
+  O programa fora dividido em arquivos que representam cada etapa do processo de decodificação da instrução hexadecimal ou binaria.
 
-  Operation-Type:
-    O arquivo header "operation-type" é dividido entre 6 funções: 
-      1 = detector de opcode
-      2-6 = Divisor de operação de tipo R a J (exclui o tipo U)
-    
-    Na aplicação real, ao detectar o valor respectivo do opcode, a implementação tem a responsabilidade de retornar este valor ao seu respectivo tipo e dividir a instrução de 32 bits respectivamente.
+  Etapa 1 = "file-interpreter.hpp" 
+    Este arquivo trabalha com a leitura do arquivo de instruções em linguagem de maquina.
+    O mesmo arquivo possui funções para identificar se a instrução e hexadecimal ou binaria e trata-la respectivamente.
+
+  Etapa 2 = "instruction-type.hpp"
+    Este arquivo recebe o binario extraido da função lineReader() do arquivo previo.
+    Ele então e tratado para extrair seu valor opcode respectivo (primeiros 7 bits do binario),
+    apos fazer isto o arquivo então identifica o tipo representado no opcode e separa os valores binarios de cada campo do binario original em um array dedicado.
+    Ha um comentario em cada um dos tipos explicando o que cada campo signifca em relação ao binario original em conjunto do seu tipo identificado.
+
+  Etapa 3 = "instruction-mnemonic.hpp"
+    Nesta etapa o arquivo respectivo le valores especificos que foram extraidos no arquivo anterior, baseado no tipo dedicado.
+    Ou seja, entre os tipos identificados, seus valores opcode, funct3 e funct7, e destes valores descobre, baseado em uma tabela de tipos, o mnêmonico correto da instrução.
+
+  Etapa 4 = "instruction-recomposition.hpp"
+    Então, com todas as informações em mão o programa consegue reconstruir a expressão assembly original baseado no valor opcode e todas as informações previas.
+
+  Etapa 5 = "decoder,cpp"
+    Ao fim, chamamos a função instructionDecoder() no arquivo principal, que a partir das informações previas nos mostra o valor respectivo de cada campo da instrução e sua expressão assembly.
 
 
     Material utilizado:
