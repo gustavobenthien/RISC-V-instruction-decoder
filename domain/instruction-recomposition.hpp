@@ -4,6 +4,7 @@
 #include "instruction-type.hpp"
 #include "instruction-mnemonic.hpp"
 #include "instruction-abi.hpp"
+#include "cpi-instructions.hpp"
 
 using namespace std;
 
@@ -11,6 +12,8 @@ string instructionReconstruction(string binary, string values[]) {
 
   // TIPO R
   if(opcode(binary) == "0110011") {
+
+    incrementCount('R');
 
     typeR(binary, values);
 
@@ -22,6 +25,8 @@ string instructionReconstruction(string binary, string values[]) {
 
   // TIPO I ALU
   else if(opcode(binary) == "0010011") {
+
+    incrementCount('I');   
 
     typeI(binary, values);
 
@@ -53,6 +58,8 @@ string instructionReconstruction(string binary, string values[]) {
 
   // TIPO I LOAD
   else if(opcode(binary) == "0000011") {
+
+    incrementCount('I');
     
     typeI(binary, values);
 
@@ -64,6 +71,9 @@ string instructionReconstruction(string binary, string values[]) {
 
   // TIPO I JALR
   else if(opcode(binary) == "1100111") {
+
+    incrementCount('I');
+
     typeI(binary, values);
 
     return mnemonicTypeI(opcode(binary), values[3], values[0]) +
@@ -74,6 +84,8 @@ string instructionReconstruction(string binary, string values[]) {
 
   // TIPO S
   else if(opcode(binary) == "0100011") {
+
+    incrementCount('S');
 
     typeS(binary, values);
 
@@ -86,6 +98,8 @@ string instructionReconstruction(string binary, string values[]) {
   // TIPO B
   else if(opcode(binary) == "1100011") {
 
+    incrementCount('B');
+
     typeB(binary, values);
 
     return mnemonicTypeB(values[4]) + 
@@ -97,6 +111,8 @@ string instructionReconstruction(string binary, string values[]) {
   
   // TIPO J
   else if(opcode(binary) == "1101111") {
+
+    incrementCount('J');
     
     typeJ(binary, values);
 
@@ -108,6 +124,8 @@ string instructionReconstruction(string binary, string values[]) {
 
   // TIPO U
   else if(opcode(binary) == "0110111" || opcode(binary) == "0010111") {
+
+    incrementCount('U');
 
     typeU(binary, values);
 

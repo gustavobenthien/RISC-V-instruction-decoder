@@ -4,6 +4,7 @@
 #include "instruction-type.hpp"
 #include "instruction-mnemonic.hpp"
 #include "instruction-recomposition.hpp"
+#include "cpi-instructions.hpp"
 #include "pc-control.hpp"
 
 using namespace std;
@@ -63,11 +64,37 @@ void instructionDecoder(string binary, string fields[]) {
     cout << "IMM: " << binaryIntConverter(fields[0]) << endl;
   }
 
+  cout << "-------------------" << endl;  
+  cout << "Hexadecimal instruction: " << endl;
+  cout << "-------------------" << endl;
+  cout << binaryHexaConverter(binary) << endl;
   cout << "-------------------" << endl;
   cout << "Assembly instruction: " << endl;
   cout << "-------------------" << endl;
   cout << instructionReconstruction(binary, fields) << endl;
   cout << "-------------------" << endl << endl;
+}
+
+void instructionsCPI() {
+  cout << "Instruction type count:" << endl; 
+  cout << "-------------------" << endl;
+  cout << "R: " << getAmountR() << endl;
+  cout << "I: " << getAmountI() << endl;
+  cout << "S: " << getAmountS() << endl;
+  cout << "B: " << getAmountB() << endl;
+  cout << "J: " << getAmountJ() << endl;
+  cout << "U: " << getAmountU() << endl;
+  cout << "-------------------" << endl;
+
+  cout << "Avarage percentage per type:" << endl;
+  cout << "-------------------" << endl;
+  cout << "R: " << avarageCPI('R') << "%" << endl;
+  cout << "I: " << avarageCPI('I') << "%" << endl;
+  cout << "S: " << avarageCPI('S') << "%" << endl;
+  cout << "B: " << avarageCPI('B') << "%" << endl;
+  cout << "J: " << avarageCPI('J') << "%" << endl;
+  cout << "U: " << avarageCPI('U') << "%" << endl;
+  cout << "-------------------" << endl;
 }
 
 void menu() {
@@ -101,7 +128,11 @@ void usableMenu() {
       case 1 : 
         while(1) {
           string line = lineReader();
-          if(line == "end") break;
+          if(line == "end") {
+            instructionsCPI();
+            resetCount();
+            break;
+          }
           
           instructionDecoder(line, fields);
         }
