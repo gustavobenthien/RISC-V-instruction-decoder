@@ -108,7 +108,6 @@ string lineReader() {
     if (line.substr(0, 2) == "0x" || line.substr(0, 2) == "0X") {
 
       if (!isHexadecimal(line)) {
-
         cout << "Invalid hexadecimal: " << line << endl;
         continue;
       }

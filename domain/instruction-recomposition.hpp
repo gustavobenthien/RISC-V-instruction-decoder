@@ -8,8 +8,9 @@
 
 using namespace std;
 
-string instructionReconstruction(string binary, string values[]) {
+string instructionReconstruction(string binary) {
 
+  string values[7];
   // TIPO R
   if(opcode(binary) == "0110011") {
 

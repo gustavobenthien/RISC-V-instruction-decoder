@@ -9,59 +9,61 @@
 
 using namespace std;
 
-void instructionDecoder(string binary, string fields[]) {
+void instructionDecoder(string binary) {
+  string values[7];
+
   cout << "PC: " << getPC() << endl;
   cout << "-------------------" << endl;
   cout << "Format: " << typeIdentification(opcode(binary)) << endl;
   
   if(typeIdentification(opcode(binary)) == 'R') {
-    typeR(binary, fields);
-    cout << "Mnemonic: " << mnemonicTypeR(fields[3], fields[0]) << endl;
-    cout << "RD: " << binaryIntConverter(fields[4]) << endl;
-    cout << "RS1: " << binaryIntConverter(fields[2]) << endl;
-    cout << "RS2: " << binaryIntConverter(fields[1]) << endl;
-    cout << "FUNCT3: " << fields[3] << endl;
-    cout << "FUNCT7: " << fields[0] << endl; 
+    typeR(binary, values);
+    cout << "Mnemonic: " << mnemonicTypeR(values[3], values[0]) << endl;
+    cout << "RD: " << binaryIntConverter(values[4]) << endl;
+    cout << "RS1: " << binaryIntConverter(values[2]) << endl;
+    cout << "RS2: " << binaryIntConverter(values[1]) << endl;
+    cout << "FUNCT3: " << values[3] << endl;
+    cout << "FUNCT7: " << values[0] << endl; 
   }
 
   else if(typeIdentification(opcode(binary)) == 'I') {
-    typeI(binary, fields);
-    cout << "Mnemonic: " << mnemonicTypeI(opcode(binary), fields[3], fields[0]) << endl;
-    cout << "RD: " << binaryIntConverter(fields[4]) << endl;
-    cout << "RS1: " << binaryIntConverter(fields[2]) << endl;
-    cout << "IMM: " << binaryIntConverter(fields[0] + fields[1]) << endl;
-    cout << "FUNCT3: " << fields[3] << endl;
+    typeI(binary, values);
+    cout << "Mnemonic: " << mnemonicTypeI(opcode(binary), values[3], values[0]) << endl;
+    cout << "RD: " << binaryIntConverter(values[4]) << endl;
+    cout << "RS1: " << binaryIntConverter(values[2]) << endl;
+    cout << "IMM: " << binaryIntConverter(values[0] + values[1]) << endl;
+    cout << "FUNCT3: " << values[3] << endl;
   }
 
   else if(typeIdentification(opcode(binary)) == 'S') {
-    typeS(binary, fields);
-    cout << "Mnemonic: " << mnemonicTypeS(fields[3]) << endl;
-    cout << "RS1: " << binaryIntConverter(fields[2]) << endl;
-    cout << "RS2: " << binaryIntConverter(fields[1]) << endl;
-    cout << "IMM: " << binaryIntConverter(fields[0] + fields[4]) << endl;
+    typeS(binary, values);
+    cout << "Mnemonic: " << mnemonicTypeS(values[3]) << endl;
+    cout << "RS1: " << binaryIntConverter(values[2]) << endl;
+    cout << "RS2: " << binaryIntConverter(values[1]) << endl;
+    cout << "IMM: " << binaryIntConverter(values[0] + values[4]) << endl;
   }
 
   else if(typeIdentification(opcode(binary)) == 'B') {
-    typeB(binary, fields);
-    cout << "Mnemonic: " << mnemonicTypeB(fields[4]) << endl;
-    cout << "RS1: " << binaryIntConverter(fields[3]) << endl;
-    cout << "RS2: " << binaryIntConverter(fields[2]) << endl;
-    cout << "IMM: " << binaryIntConverter(fields[0] + fields[1] + fields[5] + fields[6]) << endl;
+    typeB(binary, values);
+    cout << "Mnemonic: " << mnemonicTypeB(values[4]) << endl;
+    cout << "RS1: " << binaryIntConverter(values[3]) << endl;
+    cout << "RS2: " << binaryIntConverter(values[2]) << endl;
+    cout << "IMM: " << binaryIntConverter(values[0] + values[1] + values[5] + values[6]) << endl;
   }
 
   else if(typeIdentification(opcode(binary)) == 'J') {
-    typeJ(binary, fields);
+    typeJ(binary, values);
     cout << "Mnemonic: " << mnemonicTypeJ() << endl;
-    cout << "RD: " << binaryIntConverter(fields[4]) << endl;
-    cout << "IMM: " << binaryIntConverter(fields[0] + fields[1] + fields[2] + fields[3]) << endl;
+    cout << "RD: " << binaryIntConverter(values[4]) << endl;
+    cout << "IMM: " << binaryIntConverter(values[0] + values[1] + values[2] + values[3]) << endl;
   }
 
   
   else if(typeIdentification(opcode(binary)) == 'U') {
-    typeU(binary, fields);
+    typeU(binary, values);
     cout << "Mnemonic: " << mnemonicTypeU(opcode(binary)) << endl;
-    cout << "RD: " << binaryIntConverter(fields[1]) << endl;
-    cout << "IMM: " << binaryIntConverter(fields[0]) << endl;
+    cout << "RD: " << binaryIntConverter(values[1]) << endl;
+    cout << "IMM: " << binaryIntConverter(values[0]) << endl;
   }
 
   cout << "-------------------" << endl;  
@@ -71,7 +73,7 @@ void instructionDecoder(string binary, string fields[]) {
   cout << "-------------------" << endl;
   cout << "Assembly instruction: " << endl;
   cout << "-------------------" << endl;
-  cout << instructionReconstruction(binary, fields) << endl;
+  cout << instructionReconstruction(binary) << endl;
   cout << "-------------------" << endl << endl;
 }
 
@@ -114,9 +116,6 @@ void usableMenu() {
 
   bool running = true;
 
-  // maximo de campos que o tipo pode ter
-  string fields[7];
-  
   while(running) {
 
     cout << endl;
@@ -134,12 +133,12 @@ void usableMenu() {
             break;
           }
           
-          instructionDecoder(line, fields);
+          instructionDecoder(line);
         }
         break;
 
       case 2 :
-        instructionDecoder(lineReader(), fields);
+        instructionDecoder(lineReader());
         break;
 
       case 3 :
